@@ -54,6 +54,23 @@ environment_sotv_special_table: Dict[str, int] = {
     "The Planetarium":                         45,  # voidraid
 }
 
+environment_sots_orderedstage_1_table: Dict[str, int] = {
+    "Viscous Falls":                           00,  # lakesnight
+    "Shattered Abodes":                        00,  # village
+    "Disturbed Impact":                        00,  # villagenight
+}
+
+environment_sots_orderedstage_5_table: Dict[str, int] = {
+    "Helminth Hatchery":                       00,  # helminthroost
+}
+
+environment_sots_colossus_table: Dict[str, int] = {
+    "Reformed Altar":                          00,  # lemuriantemple (?)
+    "Treeborn Colony":                         00,  # habitat
+    "Golden Dieback":                          00,  # habitatfall
+    "Prime Meridian":                          00,  # meridian
+}
+
 X = TypeVar("X")
 Y = TypeVar("Y")
 
@@ -107,11 +124,17 @@ environment_sotv_orderedstages_table = \
 environment_sotv_table = \
     {**compress_dict_list_horizontal(environment_sotv_orderedstages_table), **environment_sotv_special_table}
 
+environment_sots_orderedstages_table = \
+    [environment_sots_orderedstage_1_table, environment_sots_orderedstage_5_table]
+environment_sots_table = \
+    {**compress_dict_list_horizontal(environment_sots_orderedstages_table), **environment_sots_colossus_table}
+
 environment_non_orderedstages_table = \
     {**environment_vanilla_hidden_realm_table, **environment_vanilla_special_table, **environment_sotv_special_table}
 environment_orderedstages_table = \
-    collapse_dict_list_vertical(environment_vanilla_orderedstages_table, environment_sotv_orderedstages_table)
-environment_all_table = {**environment_vanilla_table, **environment_sotv_table}
+    collapse_dict_list_vertical(environment_vanilla_orderedstages_table, environment_sotv_orderedstages_table,
+    environment_sots_orderedstages_table)
+environment_all_table = {**environment_vanilla_table, **environment_sotv_table, **environment_sots_table}
 
 
 def shift_by_offset(dictionary: Dict[str, int], offset: int) -> Dict[str, int]:

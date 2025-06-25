@@ -36,10 +36,23 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         "Sky Meadow":                           RoRRegionData([], ["Hidden Realm: Bulwark's Ambry", "OrderedStage_5"]),
     }
     # SOTV Regions
-    dlc_regions: Dict[str, RoRRegionData] = {
+    dlc1_regions: Dict[str, RoRRegionData] = {
         "Siphoned Forest":                      RoRRegionData([], ["OrderedStage_1"]),
         "Aphelian Sanctuary":                   RoRRegionData([], ["OrderedStage_2"]),
         "Sulfur Pools":                         RoRRegionData([], ["OrderedStage_3"])
+    }
+    # SOTS Regions
+    dlc2_regions: Dict[str, RoRRegionData] = {
+        "Viscous Falls":                        RoRRegionData([], ["OrderedStage_1"]),
+        "Shattered Abodes":                     RoRRegionData([], ["OrderedStage_1"]),
+        "Disturbed Impact":                     RoRRegionData([], ["OrderedStage_1"]),
+        "Helminth Hatchery":                    RoRRegionData([], ["Hidden Realm: Bulwark's Ambry","OrderedStage_5"])
+    }
+    dlc2_colossus_regions: Dict[str, RoRRegionData] = {
+        "Reformed Altar":                       RoRRegionData([], ["ColossusStage_1"]),
+        "Treeborn Colony":                      RoRRegionData([], ["ColossusStage_2"]),
+        "Golden Dieback":                       RoRRegionData([], ["ColossusStage_2"]),
+        "Prime Meridian":                       RoRRegionData([], ["ColossusStage_3"])
     }
     other_regions: Dict[str, RoRRegionData] = {
         "Commencement":                         RoRRegionData(None, ["Victory", "Petrichor V"]),
@@ -61,9 +74,14 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         "Hidden Realm: Bazaar Between Time":    RoRRegionData(None, ["Void Fields"]),
         "Hidden Realm: Gilded Coast":           RoRRegionData(None, None)
     }
-    dlc_other_regions: Dict[str, RoRRegionData] = {
+    dlc1_other_regions: Dict[str, RoRRegionData] = {
         "The Planetarium":                      RoRRegionData(None, ["Victory", "Petrichor V"]),
         "Void Locus":                           RoRRegionData(None, ["The Planetarium"])
+    }
+    dlc2_other_regions: Dict[str, RoRRegionData] = {
+        "ColossusStage_1":                      RoRRegionData(None, ["Treeborn Colony", "Golden Dieback", "OrderedStage_3"]),
+        "ColossusStage_2":                      RoRRegionData(None, ["Prime Meridian", "OrderedStage_4"]),
+        "ColossusStage_3":                      RoRRegionData(None, ["Victory", "Petrichor V", "OrderedStage_5"])
     }
     # Totals of each item
     chests = int(ror2_options.chests_per_stage)
@@ -72,8 +90,12 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
     scanners = int(ror2_options.scanner_per_stage)
     newt = int(ror2_options.altars_per_stage)
     all_location_regions = {**non_dlc_regions}
-    if ror2_options.dlc_sotv:
-        all_location_regions = {**non_dlc_regions, **dlc_regions}
+    if ror2_options.dlc_sotv and ror2_options.dlc_sots:
+        all_location_regions = {**non_dlc_regions, **dlc1_regions, **dlc2_regions}
+    elif ror2_options.dlc_sotv:
+        all_location_regions = {**non_dlc_regions, **dlc1_regions}
+    elif ror2_options.dlc_sots:
+        all_location_regions = {**non_dlc_regions, **dlc2_regions}
 
     # Locations
     for key in all_location_regions:
@@ -106,18 +128,38 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         other_regions["OrderedStage_2"].region_exits.append("Sulfur Pools")
         other_regions["Void Fields"].region_exits.append("Void Locus")
         other_regions["Commencement"].region_exits.append("The Planetarium")
-        regions_pool: Dict = {**all_location_regions, **other_regions, **dlc_other_regions}
+    
+    if ror2_options.dlc_sots:
+        non_dlc_regions["Menu"].region_exits.append("Shattered Abodes")
+        other_regions["OrderedStage_1"].region_exits.append("Reformed Altar")
+        other_regions["OrderedStage_2"].region_exits.append("Treeborn Colon")
+        other_regions["OrderedStage_3"].region_exits.append("Prime Meridian")
+        other_regions["OrderedStage_4"].region_exits.append("Helminth Hatchery")
+
+    if ror2_options.dlc_sotv and ror2_options.dlc_sots:
+        regions_pool: Dict = {**all_location_regions, **other_regions, **dlc1_other_regions, **dlc2_other_regions}
+    elif ror2_options.dlc_sotv:
+        regions_pool: Dict = {**all_location_regions, **other_regions, **dlc1_other_regions}
+    elif ror2_options.dlc_sots:
+        regions_pool: Dict = {**all_location_regions, **other_regions, **dlc2_other_regions}
 
     # Check to see if Victory needs to be removed from regions
     if ror2_options.victory == "mithrix":
         other_regions["Hidden Realm: A Moment, Whole"].region_exits.pop(0)
-        dlc_other_regions["The Planetarium"].region_exits.pop(0)
+        dlc1_other_regions["The Planetarium"].region_exits.pop(0)
+        dlc2_other_regions["ColossusStage_3"].region_exits.pop(0)
     elif ror2_options.victory == "voidling":
         other_regions["Commencement"].region_exits.pop(0)
         other_regions["Hidden Realm: A Moment, Whole"].region_exits.pop(0)
+        dlc2_other_regions["ColossusStage_3"].region_exits.pop(0)
     elif ror2_options.victory == "limbo":
         other_regions["Commencement"].region_exits.pop(0)
-        dlc_other_regions["The Planetarium"].region_exits.pop(0)
+        dlc1_other_regions["The Planetarium"].region_exits.pop(0)
+        dlc2_other_regions["ColossusStage_3"].region_exits.pop(0)
+    elif ror2_options.victory == "falseson":
+        other_regions["Commencement"].region_exits.pop(0)
+        other_regions["Hidden Realm: A Moment, Whole"].region_exits.pop(0)
+        dlc1_other_regions["The Planetarium"].region_exits.pop(0)
 
     # Create all the regions
     for name, data in regions_pool.items():

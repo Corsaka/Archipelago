@@ -75,7 +75,7 @@ def create_environment_table(name: str, environment_id: int, environment_classif
 
 
 environment_table: Dict[str, RiskOfRainItemData] = {}
-# use the sotv dlc in the item table so that all names can be looked up regardless of use
+# use the dlcs in the item table so that all names can be looked up regardless of use
 for data, key in environment_all_table.items():
     classification = ItemClassification.progression
     if data in {"Hidden Realm: Bulwark's Ambry", "Hidden Realm: Gilded Coast"}:

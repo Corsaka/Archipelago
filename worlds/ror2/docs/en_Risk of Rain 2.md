@@ -80,7 +80,7 @@ _the new equipment_ will take it's place.
 
 Explore Mode items are:
 
-* `Titanic Plains (1)`, `Titanic Plains (2)`, `Distant Roost (1)`, `Distant Roost (2)`
+* `Titanic Plains (1)`, `Titanic Plains (2)`, `Distant Roost (1)`, `Distant Roost (2)`, `Verdant Falls`
 * `Abandoned Aqueduct`, `Wetland Aspect`
 * `Rallypoint Delta`, `Scorched Acres`
 * `Abyssal Depths`, `Siren's Call`, `Sundered Grove`
@@ -93,6 +93,17 @@ Dlc_Sotv items
 * `Aphelian Sanctuary`
 * `Sulfur Pools`
 * `Void Locus`
+* `The Planetarium`
+
+Dlc_Sots items
+* `Shattered Abodes`
+* `Viscous Falls`
+* `Disturbed Impact`
+* `Reformed Altar`
+* `Treeborn Colony`
+* `Golden Dieback`
+* `Prime Meridian`
+* `Helminth Hatchery`
 
 When an explore item is granted, it will unlock that environment and will now be accessible! The 
 game will still pick randomly which environment is next, but it will first check to see if they are available. If you have

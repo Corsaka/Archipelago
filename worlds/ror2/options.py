@@ -24,6 +24,7 @@ class Victory(Choice):
     Mithrix: Defeat Mithrix in Commencement
     Voidling: Defeat the Voidling in The Planetarium (DLC required! Will select any if not enabled.)
     Limbo: Defeat the Scavenger in Hidden Realm: A Moment, Whole
+    False Son: Defeat the False Son in Prime Meridian (DLC required! Will select any if not enabled.)
     Any: Any victory in the game will count. See Final Stage Death for additional ways.
     """
     display_name = "Victory Condition"
@@ -31,6 +32,7 @@ class Victory(Choice):
     option_mithrix = 1
     option_voidling = 2
     option_limbo = 3
+    option_falseson = 4
     default = 0
 
 
@@ -134,11 +136,13 @@ class FinalStageDeath(Toggle):
     """The following will count as a win if set to "true", and victory is set to "any":
     Dying in Commencement.
     Dying in The Planetarium.
-    Obliterating yourself
+    Dying in Prime Meridian.
+    Obliterating yourself.
     If not use the following to tell if final stage death will count:
     Victory: mithrix - only dying in Commencement will count.
     Victory: voidling - only dying in The Planetarium will count.
-    Victory: limbo - Obliterating yourself will count."""
+    Victory: limbo - Obliterating yourself will count.
+    Victory: falseson - Only dying in Prime Meridian will count."""
     display_name = "Final Stage Death is Win"
 
 
@@ -149,6 +153,13 @@ class DLC_SOTV(Toggle):
      Adds Void Items into the item pool
      """
     display_name = "Enable DLC - SOTV"
+
+class DLC_SOTS(Toggle):
+    """
+     Enable if you are using SOTS DLC.
+     Affects environment availability for Explore Mode.
+     """
+    display_name = "Enable DLC - SOTS"
 
 
 class RequireStages(DefaultOnToggle):
@@ -427,6 +438,7 @@ class ROR2Options(PerGameCommonOptions):
     start_with_revive: StartWithRevive
     final_stage_death: FinalStageDeath
     dlc_sotv: DLC_SOTV
+    dlc_sots: DLC_SOTS
     require_stages: RequireStages
     progressive_stages: ProgressiveStages
     death_link: DeathLink
