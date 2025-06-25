@@ -3,72 +3,78 @@ from typing import Dict, List, TypeVar
 # TODO probably move to Locations
 
 environment_vanilla_orderedstage_1_table: Dict[str, int] = {
-    "Distant Roost":                            7,  # blackbeach
-    "Distant Roost (2)":                        8,  # blackbeach2
-    "Titanic Plains":                          15,  # golemplains
-    "Titanic Plains (2)":                      16,  # golemplains2
-    "Verdant Falls":                           28,  # lakes
+    "Distant Roost":                           10,  # blackbeach
+    "Distant Roost (2)":                       11,  # blackbeach2
+    "Titanic Plains":                          18,  # golemplains
+    "Titanic Plains (2)":                      19,  # golemplains2
+    "Verdant Falls":                           33,  # lakes
 }
 environment_vanilla_orderedstage_2_table: Dict[str, int] = {
-    "Abandoned Aqueduct":                      17,  # goolake
-    "Wetland Aspect":                          12,  # foggyswamp
+    "Abandoned Aqueduct":                      20,  # goolake
+    "Wetland Aspect":                          15,  # foggyswamp
 }
 environment_vanilla_orderedstage_3_table: Dict[str, int] = {
-    "Rallypoint Delta":                        13,  # frozenwall
-    "Scorched Acres":                          47,  # wispgraveyard
+    "Rallypoint Delta":                        16,  # frozenwall
+    "Scorched Acres":                          59,  # wispgraveyard
 }
 environment_vanilla_orderedstage_4_table: Dict[str, int] = {
-    "Abyssal Depths":                          10,  # dampcavesimple
-    "Siren's Call":                            37,  # shipgraveyard
-    "Sundered Grove":                          35,  # rootjungle
+    "Abyssal Depths":                          13,  # dampcavesimple
+    "Siren's Call":                            47,  # shipgraveyard
+    "Sundered Grove":                          45,  # rootjungle
 }
 environment_vanilla_orderedstage_5_table: Dict[str, int] = {
-    "Sky Meadow":                              38,  # skymeadow
+    "Sky Meadow":                              48,  # skymeadow
 }
 
 environment_vanilla_hidden_realm_table: Dict[str, int] = {
     "Hidden Realm: Bulwark's Ambry":            5,  # artifactworld
-    "Hidden Realm: Bazaar Between Time":        6,  # bazaar
-    "Hidden Realm: Gilded Coast":              14,  # goldshores
-    "Hidden Realm: A Moment, Whole":           27,  # limbo
-    "Hidden Realm: A Moment, Fractured":       33,  # mysteryspace
+    "Hidden Realm: Bazaar Between Time":        9,  # bazaar
+    "Hidden Realm: Gilded Coast":              17,  # goldshores
+    "Hidden Realm: A Moment, Whole":           36,  # limbo
+    "Hidden Realm: A Moment, Fractured":       43,  # mysteryspace
 }
 
 environment_vanilla_special_table: Dict[str, int] = {
     "Void Fields":                              4,  # arena
-    "Commencement":                            32,  # moon2
+    "Commencement":                            42,  # moon2
 }
 
 environment_sotv_orderedstage_1_table: Dict[str, int] = {
-    "Siphoned Forest":                         39,  # snowyforest
+    "Siphoned Forest":                         49,  # snowyforest
 }
 environment_sotv_orderedstage_2_table: Dict[str, int] = {
     "Aphelian Sanctuary":                       3,  # ancientloft
 }
 environment_sotv_orderedstage_3_table: Dict[str, int] = {
-    "Sulfur Pools":                            41,  # sulfurpools
+    "Sulfur Pools":                            51,  # sulfurpools
 }
 
 environment_sotv_special_table: Dict[str, int] = {
-    "Void Locus":                              46,  # voidstage
-    "The Planetarium":                         45,  # voidraid
+    "Void Locus":                              58,  # voidstage
+    "The Planetarium":                         57,  # voidraid
 }
 
 environment_sots_orderedstage_1_table: Dict[str, int] = {
-    "Viscous Falls":                           00,  # lakesnight
-    "Shattered Abodes":                        00,  # village
-    "Disturbed Impact":                        00,  # villagenight
+    "Viscous Falls":                           34,  # lakesnight
+    "Shattered Abodes":                        52,  # village
+    "Disturbed Impact":                        53,  # villagenight
 }
 
 environment_sots_orderedstage_5_table: Dict[str, int] = {
-    "Helminth Hatchery":                       00,  # helminthroost
+    "Helminth Hatchery":                       23,  # helminthroost
 }
 
 environment_sots_colossus_table: Dict[str, int] = {
-    "Reformed Altar":                          00,  # lemuriantemple (?)
-    "Treeborn Colony":                         00,  # habitat
-    "Golden Dieback":                          00,  # habitatfall
-    "Prime Meridian":                          00,  # meridian
+    "Reformed Altar":                          35,  # lemuriantemple
+    "Treeborn Colony":                         21,  # habitat
+    "Golden Dieback":                          22,  # habitatfall
+    "Prime Meridian":                          40,  # meridian
+}
+
+environment_sots_hidden_realm_table: Dict[str, int] = {
+    "Hidden Realm: Bulwark's Ambry (Aphelian)": 6,  # artifactworld01
+    "Hidden Realm: Bulwark's Ambry (Tar)":      7,  # artifactworld02
+    "Hidden Realm: Bulwark's Ambry (Wisp)":     8,  # artifactworld03
 }
 
 X = TypeVar("X")
@@ -127,7 +133,8 @@ environment_sotv_table = \
 environment_sots_orderedstages_table = \
     [environment_sots_orderedstage_1_table, environment_sots_orderedstage_5_table]
 environment_sots_table = \
-    {**compress_dict_list_horizontal(environment_sots_orderedstages_table), **environment_sots_colossus_table}
+    {**compress_dict_list_horizontal(environment_sots_orderedstages_table), **environment_sots_colossus_table,
+     **environment_sots_hidden_realm_table}
 
 environment_non_orderedstages_table = \
     {**environment_vanilla_hidden_realm_table, **environment_vanilla_special_table, **environment_sotv_special_table}
