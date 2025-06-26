@@ -113,7 +113,7 @@ class RiskOfRainWorld(World):
                 environment_available_orderedstages_table = \
                     collapse_dict_list_vertical(environment_available_orderedstages_table,
                                                 environment_sotv_orderedstages_table)
-            if self.option.dlc_sots:
+            if self.options.dlc_sots:
                 environment_available_orderedstages_table = \
                     collapse_dict_list_vertical(environment_available_orderedstages_table,
                                                 environment_sots_orderedstages_table)

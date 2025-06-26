@@ -35,25 +35,6 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         "Sundered Grove":                       RoRRegionData([], ["OrderedStage_4"]),
         "Sky Meadow":                           RoRRegionData([], ["Hidden Realm: Bulwark's Ambry", "OrderedStage_5"]),
     }
-    # SOTV Regions
-    dlc1_regions: Dict[str, RoRRegionData] = {
-        "Siphoned Forest":                      RoRRegionData([], ["OrderedStage_1"]),
-        "Aphelian Sanctuary":                   RoRRegionData([], ["OrderedStage_2"]),
-        "Sulfur Pools":                         RoRRegionData([], ["OrderedStage_3"])
-    }
-    # SOTS Regions
-    dlc2_regions: Dict[str, RoRRegionData] = {
-        "Viscous Falls":                        RoRRegionData([], ["OrderedStage_1"]),
-        "Shattered Abodes":                     RoRRegionData([], ["OrderedStage_1"]),
-        "Disturbed Impact":                     RoRRegionData([], ["OrderedStage_1"]),
-        "Helminth Hatchery":                    RoRRegionData([], ["Hidden Realm: Bulwark's Ambry","OrderedStage_5"])
-    }
-    dlc2_colossus_regions: Dict[str, RoRRegionData] = {
-        "Reformed Altar":                       RoRRegionData([], ["ColossusStage_1"]),
-        "Treeborn Colony":                      RoRRegionData([], ["ColossusStage_2"]),
-        "Golden Dieback":                       RoRRegionData([], ["ColossusStage_2"]),
-        "Prime Meridian":                       RoRRegionData([], ["ColossusStage_3"])
-    }
     other_regions: Dict[str, RoRRegionData] = {
         "Commencement":                         RoRRegionData(None, ["Victory", "Petrichor V"]),
         "OrderedStage_5":                       RoRRegionData(None, ["Hidden Realm: A Moment, Fractured",
@@ -74,14 +55,39 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         "Hidden Realm: Bazaar Between Time":    RoRRegionData(None, ["Void Fields"]),
         "Hidden Realm: Gilded Coast":           RoRRegionData(None, None)
     }
+    # SOTV Regions
+    dlc1_regions: Dict[str, RoRRegionData] = {
+        "Siphoned Forest":                      RoRRegionData([], ["OrderedStage_1"]),
+        "Aphelian Sanctuary":                   RoRRegionData([], ["OrderedStage_2"]),
+        "Sulfur Pools":                         RoRRegionData([], ["OrderedStage_3"])
+    }
     dlc1_other_regions: Dict[str, RoRRegionData] = {
         "The Planetarium":                      RoRRegionData(None, ["Victory", "Petrichor V"]),
         "Void Locus":                           RoRRegionData(None, ["The Planetarium"])
     }
+    # SOTS Regions
+    dlc2_regions: Dict[str, RoRRegionData] = {
+        "Viscous Falls":                        RoRRegionData([], ["OrderedStage_1"]),
+        "Shattered Abodes":                     RoRRegionData([], ["OrderedStage_1"]),
+        "Disturbed Impact":                     RoRRegionData([], ["OrderedStage_1"]),
+        "Helminth Hatchery":                    RoRRegionData([], ["Hidden Realm: Bulwark's Ambry",
+                                                                   "Bulwark's Ambry (Aphelian)","Bulwark's Ambry (Tar)",
+                                                                   "Bulwark's Ambry (Wisp)", "OrderedStage_5"])
+    }
+    dlc2_colossus_regions: Dict[str, RoRRegionData] = {
+        "Reformed Altar":                       RoRRegionData([], ["ColossusStage_1"]),
+        "Treeborn Colony":                      RoRRegionData([], ["ColossusStage_2"]),
+        "Golden Dieback":                       RoRRegionData([], ["ColossusStage_2"])
+    }
     dlc2_other_regions: Dict[str, RoRRegionData] = {
-        "ColossusStage_1":                      RoRRegionData(None, ["Treeborn Colony", "Golden Dieback", "OrderedStage_3"]),
+        "Prime Meridian":                       RoRRegionData([], ["ColossusStage_3"]), #no chest/shrine locations
+        "ColossusStage_1":                      RoRRegionData(None, ["Treeborn Colony", "Golden Dieback",
+                                                                     "OrderedStage_3"]),
         "ColossusStage_2":                      RoRRegionData(None, ["Prime Meridian", "OrderedStage_4"]),
-        "ColossusStage_3":                      RoRRegionData(None, ["Victory", "Petrichor V", "OrderedStage_5"])
+        "ColossusStage_3":                      RoRRegionData(None, ["Victory", "Petrichor V", "OrderedStage_5"]),
+        "Bulwark's Ambry (Aphelian)":           RoRRegionData(None,None),
+        "Bulwark's Ambry (Tar)":                RoRRegionData(None,None),
+        "Bulwark's Ambry (Wisp)":               RoRRegionData(None,None)
     }
     # Totals of each item
     chests = int(ror2_options.chests_per_stage)
@@ -91,11 +97,11 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
     newt = int(ror2_options.altars_per_stage)
     all_location_regions = {**non_dlc_regions}
     if ror2_options.dlc_sotv and ror2_options.dlc_sots:
-        all_location_regions = {**non_dlc_regions, **dlc1_regions, **dlc2_regions}
+        all_location_regions = {**non_dlc_regions, **dlc1_regions, **dlc2_regions, **dlc2_colossus_regions}
     elif ror2_options.dlc_sotv:
         all_location_regions = {**non_dlc_regions, **dlc1_regions}
     elif ror2_options.dlc_sots:
-        all_location_regions = {**non_dlc_regions, **dlc2_regions}
+        all_location_regions = {**non_dlc_regions, **dlc2_regions, **dlc2_colossus_regions}
 
     # Locations
     for key in all_location_regions:
@@ -130,9 +136,14 @@ def create_explore_regions(ror2_world: "RiskOfRainWorld") -> None:
         other_regions["Commencement"].region_exits.append("The Planetarium")
     
     if ror2_options.dlc_sots:
+        non_dlc_regions["Menu"].region_exits.append("Viscous Falls")
         non_dlc_regions["Menu"].region_exits.append("Shattered Abodes")
+        non_dlc_regions["Menu"].region_exits.append("Disturbed Impact")
+        non_dlc_regions["Sky Meadow"].region_exits.append("Bulwark's Ambry (Aphelian)")
+        non_dlc_regions["Sky Meadow"].region_exits.append("Bulwark's Ambry (Tar)")
+        non_dlc_regions["Sky Meadow"].region_exits.append("Bulwark's Ambry (Wisp)")
         other_regions["OrderedStage_1"].region_exits.append("Reformed Altar")
-        other_regions["OrderedStage_2"].region_exits.append("Treeborn Colon")
+        other_regions["OrderedStage_2"].region_exits.append("Treeborn Colony")
         other_regions["OrderedStage_3"].region_exits.append("Prime Meridian")
         other_regions["OrderedStage_4"].region_exits.append("Helminth Hatchery")
 

@@ -78,7 +78,8 @@ environment_table: Dict[str, RiskOfRainItemData] = {}
 # use the dlcs in the item table so that all names can be looked up regardless of use
 for data, key in environment_all_table.items():
     classification = ItemClassification.progression
-    if data in {"Hidden Realm: Bulwark's Ambry", "Hidden Realm: Gilded Coast"}:
+    if data in {"Hidden Realm: Bulwark's Ambry", "Hidden Realm: Gilded Coast", "Bulwark's Ambry (Aphelian)",
+                "Bulwark's Ambry (Tar)", "Bulwark's Ambry (Wisp)"}:
         classification = ItemClassification.useful
     environment_table.update(create_environment_table(data, key, classification))
 

@@ -64,17 +64,17 @@ environment_sots_orderedstage_5_table: Dict[str, int] = {
     "Helminth Hatchery":                       23,  # helminthroost
 }
 
-environment_sots_colossus_table: Dict[str, int] = {
+environment_sots_colossus_ordered_table: Dict[str, int] = {
     "Reformed Altar":                          35,  # lemuriantemple
     "Treeborn Colony":                         21,  # habitat
     "Golden Dieback":                          22,  # habitatfall
-    "Prime Meridian":                          40,  # meridian
 }
 
-environment_sots_hidden_realm_table: Dict[str, int] = {
-    "Hidden Realm: Bulwark's Ambry (Aphelian)": 6,  # artifactworld01
-    "Hidden Realm: Bulwark's Ambry (Tar)":      7,  # artifactworld02
-    "Hidden Realm: Bulwark's Ambry (Wisp)":     8,  # artifactworld03
+environment_sots_special_table: Dict[str, int] = {
+    "Prime Meridian":                          40,  # meridian
+    "Bulwark's Ambry (Aphelian)":               6,  # artifactworld01
+    "Bulwark's Ambry (Tar)":                    7,  # artifactworld02
+    "Bulwark's Ambry (Wisp)":                   8,  # artifactworld03
 }
 
 X = TypeVar("X")
@@ -131,10 +131,10 @@ environment_sotv_table = \
     {**compress_dict_list_horizontal(environment_sotv_orderedstages_table), **environment_sotv_special_table}
 
 environment_sots_orderedstages_table = \
-    [environment_sots_orderedstage_1_table, environment_sots_orderedstage_5_table]
+    [environment_sots_orderedstage_1_table, environment_sots_orderedstage_5_table,
+     environment_sots_colossus_ordered_table]
 environment_sots_table = \
-    {**compress_dict_list_horizontal(environment_sots_orderedstages_table), **environment_sots_colossus_table,
-     **environment_sots_hidden_realm_table}
+    {**compress_dict_list_horizontal(environment_sots_orderedstages_table), **environment_sots_special_table}
 
 environment_non_orderedstages_table = \
     {**environment_vanilla_hidden_realm_table, **environment_vanilla_special_table, **environment_sotv_special_table}

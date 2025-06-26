@@ -2,7 +2,7 @@ from worlds.generic.Rules import set_rule, add_rule
 from BaseClasses import MultiWorld
 from .locations import get_locations
 from .ror2environments import environment_vanilla_orderedstages_table, environment_sotv_orderedstages_table, \
-    environment_sots_orderedstages_table, environment_sots_colossus_table
+    environment_sots_orderedstages_table
 from typing import Set, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -141,7 +141,6 @@ def set_rules(ror2_world: "RiskOfRainWorld") -> None:
         if ror2_options.dlc_sots:
             for i in range(len(environment_sots_orderedstages_table)):
                 for environment_name, _ in environment_sots_orderedstages_table[i].items():
-                    # Make sure to go through each location
                     if scavengers == 1:
                         has_location_access_rule(multiworld, environment_name, player, scavengers, "Scavenger")
                     if scanners == 1:
@@ -153,34 +152,14 @@ def set_rules(ror2_world: "RiskOfRainWorld") -> None:
                     if newts > 0:
                         for newt in range(1, newts + 1):
                             has_location_access_rule(multiworld, environment_name, player, newt, "Newt Altar")
-                    if i > 0:
-                        has_stage_access_rule(multiworld, f"Stage {i}", i, environment_name, player)
-            
-            for environment_name, _ in environment_sots_colossus_table.items():
-                i = 2 # assume it's colossus stage 2
-                if environment_name == "Prime Meridian":
-                    i = 3
-                    if scavengers == 1:
-                        has_location_access_rule(multiworld, environment_name, player, scavengers, "Scavenger")
-                    if scanners == 1:
-                        has_location_access_rule(multiworld, environment_name, player, scanners, "Radio Scanner")
-                else:
-                    if scavengers == 1:
-                        has_location_access_rule(multiworld, environment_name, player, scavengers, "Scavenger")
-                    if scanners == 1:
-                        has_location_access_rule(multiworld, environment_name, player, scanners, "Radio Scanner")
-                    for chest in range(1, chests + 1):
-                        has_location_access_rule(multiworld, environment_name, player, chest, "Chest")
-                    for shrine in range(1, shrines + 1):
-                        has_location_access_rule(multiworld, environment_name, player, shrine, "Shrine")
-                    if newts > 0:
-                        for newt in range(1, newts + 1):
-                            has_location_access_rule(multiworld, environment_name, player, newt, "Newt Altar")
+                    # need to search for special rules as not sequential ordered stages
+                    if environment_name == "Reformed Altar":
+                        has_stage_access_rule(multiworld, "Stage 1", 1, environment_name, player)
+                    elif environment_name in {"Treeborn Colony", "Golden Dieback"}:
+                        has_stage_access_rule(multiworld, "Stage 2", 2, environment_name, player)
+                    elif environment_name == "Helminth Hatchery":
+                        has_stage_access_rule(multiworld, "Stage 4", 4, environment_name, player)
 
-                if environment_name == "Reformed Altar":
-                    i = 1
-
-                has_stage_access_rule(multiworld, f"Stage {i}", i, environment_name, player)
 
         has_entrance_access_rule(multiworld, "Hidden Realm: A Moment, Fractured", "Hidden Realm: A Moment, Whole",
                                  player)
@@ -195,6 +174,7 @@ def set_rules(ror2_world: "RiskOfRainWorld") -> None:
             if ror2_options.victory == "voidling":
                 has_all_items(multiworld, {"Stage 5", "The Planetarium"}, "Commencement", player)
         if ror2_options.dlc_sots:
+            has_stage_access_rule(multiworld, "Stage 3", 3, "Prime Meridian", player)
             has_entrance_access_rule(multiworld, "Stage 5", "Viscous Falls", player)
             has_entrance_access_rule(multiworld, "Stage 5", "Disturbed Impact", player)
             has_entrance_access_rule(multiworld, "Stage 5", "Golden Dieback", player)
